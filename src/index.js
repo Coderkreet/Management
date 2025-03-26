@@ -1,12 +1,10 @@
-import express from 'express';
+import {app} from './app.js'
 import Connection from './db/Connection.js'
 import dotenv from 'dotenv';
-dotenv.config({
-    path: '.env'
-});
+dotenv.config()
 
-const PORT =  5000;
-const app = express();
+const PORT =  process.env.PORT ;
+
 
 Connection().then(() => {
    app.listen(PORT, () => {
@@ -17,6 +15,7 @@ Connection().then(() => {
     console.log("MongoDB Connection Error !!", err);
     process.exit(1);
 });
+
 
 
 
