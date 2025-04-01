@@ -1,20 +1,25 @@
-import {app} from './app.js'
-import Connection from './db/Connection.js'
+import { app } from './app.js';
+import Connection from './db/Connection.js';
 import dotenv from 'dotenv';
-dotenv.config()
+import cookieParser from 'cookie-parser'; // Import cookie-parser
 
-const PORT =  process.env.PORT ;
+dotenv.config();
 
+const PORT = process.env.PORT;
 
-Connection().then(() => {
-   app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-   });
+// Use cookie-parser middleware
+app.use(cookieParser()); // Add this line
 
-}).catch((err) => {
+Connection()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
     console.log("MongoDB Connection Error !!", err);
     process.exit(1);
-});
+  });
 
 
 
